@@ -2,7 +2,6 @@ package DiskScheduling;
 
 import java.util.ArrayList;
 
-
 public class Scan {
     private final int currentPosition;
     private final int trackSize;
@@ -18,32 +17,39 @@ public class Scan {
         requestRealSize = requests.length;
     }
 
-    public void run(){
+    public void run() {
         ArrayList<Integer> timeList = new ArrayList<>();
         requests.add(currentPosition);
-        if (!requests.contains(trackSize)) requests.add(trackSize);
+        if (!requests.contains(trackSize))
+            requests.add(trackSize);
         requests.sort(Integer::compareTo);
-       int startHeadIndex = requests.indexOf(currentPosition);
-       int currentHeadIndex = 0;
-       //Go right
-       for (int i = startHeadIndex; i < requests.size() - 1; i++) {
-           currentHeadIndex = i;
-           timeList.add(requests.get(currentHeadIndex) - requests.get(++currentHeadIndex));
-       }
-       //Go left
-       timeList.add(requests.get(currentHeadIndex) - requests.get(--startHeadIndex));
-       for (int i = startHeadIndex; i > 0; i--) {
-          currentHeadIndex = i;
-           timeList.add(requests.get(currentHeadIndex) - requests.get(--currentHeadIndex));
+        int startHeadIndex = requests.indexOf(currentPosition);
+        int currentHeadIndex = 0;
+        // Go right
+        for (int i = startHeadIndex; i < requests.size() - 1; i++) {
+            currentHeadIndex = i;
+            timeList.add(requests.get(currentHeadIndex) - requests.get(++currentHeadIndex));
+        }
+        // Go left
+        if (startHeadIndex != 0) { // if all request !> starthead
+            timeList.add(requests.get(currentHeadIndex) - requests.get(--startHeadIndex));
+            for (int i = startHeadIndex; i > 0; i--) {
+                currentHeadIndex = i;
+                timeList.add(requests.get(currentHeadIndex) - requests.get(--currentHeadIndex));
+            }
+        }else{
+            timeList.remove(timeList.size()-1); //remove the last entry from currentheadposition to the edge of tracksize
         }
 
-
-       int headMovement = 0;
+        int headMovement = 0;
         for (Integer integer : timeList) {
             headMovement += Math.abs(integer);
         }
         float seekTime = (float) headMovement / requestRealSize;
         System.out.println("head movement:" + headMovement);
         System.out.printf("seek time: %f" + "\n", seekTime);
+
+        System.out.println(timeList);
+        System.out.println(requests);
     }
 }

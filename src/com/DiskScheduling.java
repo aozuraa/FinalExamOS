@@ -1,4 +1,4 @@
-package DiskScheduling;
+package com;
 //#region steps
 
 // Input current position: 73
@@ -46,8 +46,11 @@ package DiskScheduling;
 
 import java.util.Scanner;
 
-import DiskScheduling.Scan;
 import DiskScheduling.CScan;
+import DiskScheduling.FCFS;
+import DiskScheduling.Look;
+import DiskScheduling.Scan;
+
 
 public class DiskScheduling {
     private static Scanner sc = new Scanner(System.in);
@@ -56,14 +59,9 @@ public class DiskScheduling {
     private static int[] requests;
     private static int numberOfRequests;
 
-    public static void main(String[] args) {
-        // int currentPosition = 50;
-        // int trackSize = 200 - 1;
-        // int[] request = {82,170,43,140,24,16,190};
-        // CScan cScan = new CScan(currentPosition, trackSize, request);
-        // cScan.run();
+    public static void run(){
         boolean endProgram = false;
-        while(!endProgram){
+        while (!endProgram) {
             System.out.println("Welcome to the Disk Scheduling Algorithm Simulator");
             System.out.println("Enter the current position of the disk head: ");
             currentPosition = inputCheck();
@@ -90,15 +88,13 @@ public class DiskScheduling {
                 } while (check1);
             }
             System.out.println("Enter the disk scheduling algorithm: ");
-            // System.out.println("[A] First Come First Serve (FCFS)");
-            // System.out.println("[B] Shortest Seek Time First (SSTF)");
-            System.out.println("[A] Scan");
-            // System.out.println("[D] Look");
-            System.out.println("[B]Circular Scan (CSCAN)");
-            // System.out.println("[F] Circular Look (CLOOK)");
+            System.out.println("[A] First Come First Serve (FCFS)");
+            System.out.println("[B] Look");
+            System.out.println("[C] Scan");
+            System.out.println("[D]Circular Scan (CSCAN)");
             System.out.println("[E] Exit");
-            chooseAlgorithm();
-            sc.close();
+            String isEnd = chooseAlgorithm();
+            if (isEnd == "E") break;
             System.out.println("Input again? ");
             System.out.println("press ‘y’= repeat, press any other key to exit");
             String temp = sc.next();
@@ -106,6 +102,7 @@ public class DiskScheduling {
             if (temp.equals("Y"))
                 endProgram = true;
         }
+        sc.close();
     }
 
     public static int inputCheck() {
@@ -125,24 +122,28 @@ public class DiskScheduling {
         return input;
     }
 
-    public static void chooseAlgorithm() {
+    public static String chooseAlgorithm() {
         System.out.println("Enter choice: ");
         String choice = sc.next();
         choice = choice.toUpperCase();
         switch (choice) {
             case "A":
+                FCFS fcfs = new FCFS(currentPosition, requests);
+                fcfs.run();
+                break;
+            case "B":
+                Look look = new Look(currentPosition, requests);
+                look.run();
+                break;
+            case "C":
                 Scan scan = new Scan(currentPosition, trackSize, requests);
                 scan.run();
                 break;
-            case "B": // TODO: implement aplha not sure what it does
+            case "D": 
                 System.out.println("Input alpha: ");
                 int alpha = sc.nextInt();
                 CScan cScan = new CScan(currentPosition, trackSize, requests, alpha);
                 cScan.run();
-                break;
-            case "C":
-                break;
-            case "D":
                 break;
             case "E":
                 System.out.println("Exit to DOS/Windows (terminate the program)");
@@ -151,6 +152,7 @@ public class DiskScheduling {
                 System.out.println("Invalid choice");
                 chooseAlgorithm();
         }
+        return choice;
     }
 
 }
