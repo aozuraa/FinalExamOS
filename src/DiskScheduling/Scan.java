@@ -1,14 +1,12 @@
 package DiskScheduling;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 public class Scan {
     private final int currentPosition;
     private final int trackSize;
     private final ArrayList<Integer> requests = new ArrayList<>();
-    private boolean checkEnd;
     private final int requestRealSize;
 
     public Scan(int currentPosition, int trackSize, int[] requests) {
@@ -25,7 +23,6 @@ public class Scan {
         requests.add(currentPosition);
         if (!requests.contains(trackSize)) requests.add(trackSize);
         requests.sort(Integer::compareTo);
-        System.out.println(requests.toString());;
        int startHeadIndex = requests.indexOf(currentPosition);
        int currentHeadIndex = 0;
        //Go right
@@ -48,7 +45,5 @@ public class Scan {
         float seekTime = (float) headMovement / requestRealSize;
         System.out.println("head movement:" + headMovement);
         System.out.printf("seek time: %f" + "\n", seekTime);
-        System.out.println(timeList.toString());
     }
-
 }
