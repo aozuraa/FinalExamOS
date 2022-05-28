@@ -139,7 +139,7 @@ public class RR
             } 
         } 
   
-        System.out.println("NAME  CTIME  WTIME"); 
+        System.out.println("NAME  TTIME  WTIME"); 
         for (int i = 0; i < p.length; i++) { 
             System.out.println(" " + p[i] + "    " + comp[i] 
                                + "    " + w[i]); 
@@ -150,7 +150,7 @@ public class RR
   
         System.out.println("Average waiting time is "
                            + (float)res / p.length); 
-        System.out.println("Average completion time is "
+        System.out.println("Average Turnaround time is "
                            + (float)resc / p.length); 
         System.out.println("Sequence is like that " + seq); 
     } 
