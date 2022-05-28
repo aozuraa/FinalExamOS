@@ -48,8 +48,5 @@ public class Scan {
         float seekTime = (float) headMovement / requestRealSize;
         System.out.println("head movement:" + headMovement);
         System.out.printf("seek time: %f" + "\n", seekTime);
-
-        System.out.println(timeList);
-        System.out.println(requests);
     }
 }

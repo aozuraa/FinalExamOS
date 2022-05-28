@@ -63,10 +63,16 @@ public class DiskScheduling {
         boolean endProgram = false;
         while (!endProgram) {
             System.out.println("Welcome to the Disk Scheduling Algorithm Simulator");
-            System.out.println("Enter the current position of the disk head: ");
-            currentPosition = inputCheck();
             System.out.println("Enter the track size of the disk: ");
             trackSize = inputCheck() - 1;
+            System.out.println("Enter the current position of the disk head: ");
+            boolean headcheck = false;
+            do {
+                currentPosition = inputCheck();
+                headcheck = currentPosition > 0 && currentPosition < trackSize;
+                if (!headcheck)
+                    System.out.println("Invalid size, please enter again");
+            } while (!headcheck);
             System.out.println("Enter the number of requests [max of 10]: ");
             boolean check = false;
             do {
@@ -96,10 +102,10 @@ public class DiskScheduling {
             String isEnd = chooseAlgorithm();
             if (isEnd == "E") break;
             System.out.println("Input again? ");
-            System.out.println("press ‘y’= repeat, press any other key to exit");
+            System.out.println("press 'y'= repeat, press any other key to exit");
             String temp = sc.next();
             temp = temp.toUpperCase();
-            if (temp.equals("Y"))
+            if (!temp.equals("Y"))
                 endProgram = true;
         }
         sc.close();
