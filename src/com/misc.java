@@ -1,27 +1,26 @@
+
 package com;
 
 import java.util.Scanner;
 
-public class misc {
 
-    public static boolean YesOrNo() {
+public class misc {
+        public static boolean YesOrNo() {
         Scanner scan = new Scanner(System.in);
         while (true) {
             System.out.print("Input again (y/n)? ");
             String input = scan.nextLine();
-            scan.close();
-            if (input.equals("Y") || input.equals("y")) {
+            
+            if(input.equals("Y") || input.equals("y")){
                 return true;
-            } else if (input.equals("N") || input.equals("n")) {
+            }else if(input.equals("N") || input.equals("n")){
                 return false;
             }
         }
-        
     }
-
     public static int InputReq() {
         Scanner scan = new Scanner(System.in);
-        int output;
+        int output = 0;
         try {
             System.out.print("Input number of request [max of 10]: ");
             int x = scan.nextInt();
@@ -35,7 +34,6 @@ public class misc {
             System.out.println("Invalid Input! Try again:");
             output = InputReq();
         }
-        scan.close();
         return output;
     }
 
@@ -55,37 +53,32 @@ public class misc {
             System.out.println("Invalid Input! Try again:");
             output = InputProcess();
         }
-        scan.close();
         return output;
     }
-
-    public static int InputInt(String text) {
+    public static int InputInt(String text){
         Scanner scan = new Scanner(System.in);
         int num = 0;
-        try {
+        try{
             System.out.print(text);
             num = scan.nextInt();
-        } catch (Exception e) {
+        } catch (Exception e){
             num = InputInt(text);
         }
-        scan.close();
         return num;
     }
-
-    public static int InputSize(String text, int pos) {
+    public static int InputSize(String text, int pos){
         Scanner scan = new Scanner(System.in);
         int num = 0;
-        try {
+        try{
             System.out.print(text);
             num = scan.nextInt();
-            if (num < pos) {
+            if (num < pos){
                 throw new Exception();
             }
-        } catch (Exception e) {
-            System.out.println("Invalid: Input number greater than " + pos);
+        } catch (Exception e){
+            System.out.println("Invalid: Input number greater than "+pos);
             num = InputSize(text, pos);
         }
-        scan.close();
         return num;
     }
 
@@ -102,7 +95,6 @@ public class misc {
             System.out.println("Invalid Input! Try again:");
             atOuput = InputAT(x);
         }
-        scan.close();
         return atOuput;
     }
 
@@ -119,10 +111,8 @@ public class misc {
             System.out.println("Invalid Input! Try again:");
             btOuput = InputBT(x);
         }
-        scan.close();
         return btOuput;
     }
-
     public static int[] InputLoc(int x, int size) {
         Scanner scan = new Scanner(System.in);
         int[] LocOuput = new int[x];
@@ -130,15 +120,14 @@ public class misc {
             for (int i = 0; i < x; i++) {
                 System.out.print("Loc " + (i + 1) + ": ");
                 LocOuput[i] = scan.nextInt();
-                if (LocOuput[i] > size) {
+                if(LocOuput[i] > size){
                     throw new Exception();
                 }
             }
         } catch (Exception e) {
             System.out.println("Invalid Input! Try again:");
-            LocOuput = InputLoc(x, size);
+            LocOuput = InputLoc(x,size);
         }
-        scan.close();
         return LocOuput;
     }
 }
