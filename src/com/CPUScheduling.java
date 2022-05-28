@@ -92,7 +92,7 @@ public class CPUScheduling {
     public static void RR(int[] at, int[] bt) {
         System.out.println("You have chosen RR");
         int timeslice = InputInt("Input time  slice: ");
-        RR.execute(bt, timeslice);
+        RR.execute(at, bt, timeslice);
     }
 
     public static void FCFS(int[] at, int[] bt) {
