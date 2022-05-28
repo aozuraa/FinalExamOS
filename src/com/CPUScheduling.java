@@ -63,7 +63,7 @@ public class CPUScheduling {
                     break;
                 case "D":
                 case "d":
-                    FCFS(at, bt);
+                    FCFS(at, bt, num);
                     if (YesOrNo()) {
                         check = true;
                         System.out.println("==============================");
@@ -81,7 +81,6 @@ public class CPUScheduling {
                     break;
             }
         }
-        scan.close();
     }
 
     public static void SRTF(int[] at, int[] bt) {
@@ -95,9 +94,9 @@ public class CPUScheduling {
         RR.execute(at, bt, timeslice);
     }
 
-    public static void FCFS(int[] at, int[] bt) {
+    public static void FCFS(int[] at, int[] bt, int num) {
         System.out.println("You have chosen FCFS!");
-        FCFS.execute(bt);
+        FCFS.execute(at,bt, num);
     }
 
     public static void SJF(int[] at, int[] bt) {

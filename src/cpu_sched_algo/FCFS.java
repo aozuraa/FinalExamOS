@@ -38,9 +38,61 @@ public class FCFS {
                 + (float) total_tat / (float) n);
     }
 
-    public static void execute(int[] bt) {
-        int processes[] = new int[bt.length];
-        int n = processes.length;
-        findavgTime(processes, n, bt);
+    public static void execute(int[] at, int[] bt, int n) {
+        //int processes[] = new int[bt.length];
+        //int n = processes.length;
+        //findavgTime(processes, n, bt);
+        ArrivalSorting(at, bt, n);
     }
+
+    public static void ArrivalSorting(int[] at, int[] bt, int n) {
+        int temp;
+        int pid[] = new int[n];
+        int ct[] = new int[n];
+        int ta[] = new int[n];
+        int wt[] = new int[n];
+        float avgwt = 0, avgta = 0;
+        for (int i = 0; i < n; i++) {
+            pid[i] = i + 1;
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - (i + 1); j++) {
+                if (at[j] > at[j + 1]) {
+                    temp = at[j];
+                    at[j] = at[j + 1];
+                    at[j + 1] = temp;
+                    temp = bt[j];
+                    bt[j] = bt[j + 1];
+                    bt[j + 1] = temp;
+                    temp = pid[j];
+                    pid[j] = pid[j + 1];
+                    pid[j + 1] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (i == 0) {
+                ct[i] = at[i] + bt[i];
+            } else {
+                if (at[i] > ct[i - 1]) {
+                    ct[i] = at[i] + bt[i];
+                } else {
+                    ct[i] = ct[i - 1] + bt[i];
+                }
+            }
+            ta[i] = ct[i] - at[i];
+            wt[i] = ta[i] - bt[i];
+            avgwt += wt[i];
+            avgta += ta[i];
+
+        }
+        System.out.println("Waiting Time:                 Turnaround Time:");
+        for (int i = 0; i < n; i++) {
+            System.out.println("P" + pid[i] + ": " + wt[i] + "\t\t\t\t" + "P" + pid[i] + ": " + ta[i]);
+        }
+        System.out.println("Average Waiting Time: " + (avgwt / n) + "\tTurnaround time: " + (avgta / n));
+        //System.out.println("\naverage waiting time: " + (avgwt / n));     // printing average waiting time.
+        //System.out.println("average turnaround time:" + (avgta / n));  // total turnaround time
+    }
+
 }
